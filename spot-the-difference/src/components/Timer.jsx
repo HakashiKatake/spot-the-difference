@@ -5,14 +5,14 @@ const Timer = ({ isRunning, onTimeUpdate, resetTime }) => {
   const [seconds, setSeconds] = useState(0);
   const prevSecondsRef = useRef(seconds);
   
-  // Reset timer when resetTime changes
+  
   useEffect(() => {
     if (resetTime !== undefined) {
       setSeconds(0);
     }
   }, [resetTime]);
   
-  // Update parent component only when seconds actually changes
+  
   useEffect(() => {
     if (prevSecondsRef.current !== seconds) {
       onTimeUpdate(seconds);
@@ -20,7 +20,6 @@ const Timer = ({ isRunning, onTimeUpdate, resetTime }) => {
     }
   }, [seconds, onTimeUpdate]);
   
-  // Handle timer logic
   useEffect(() => {
     let interval = null;
     
@@ -35,7 +34,6 @@ const Timer = ({ isRunning, onTimeUpdate, resetTime }) => {
     return () => clearInterval(interval);
   }, [isRunning, seconds]);
   
-  // Format time as MM:SS
   const formatTime = () => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -55,7 +53,6 @@ Timer.propTypes = {
   onTimeUpdate: PropTypes.func,
   resetTime: PropTypes.number
 };
-
 Timer.defaultProps = {
   onTimeUpdate: () => {},
   resetTime: undefined

@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 
 const SuccessModal = ({ score, total, time, onRestart }) => {
-  // Format time as MM:SS
+  
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-11/12 text-center">
@@ -39,7 +38,6 @@ const SuccessModal = ({ score, total, time, onRestart }) => {
     </div>
   );
 };
-
 SuccessModal.propTypes = {
   score: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,

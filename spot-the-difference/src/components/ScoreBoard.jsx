@@ -10,7 +10,6 @@ const ScoreBoard = ({ found, total }) => {
     </div>
   );
 };
-
 ScoreBoard.propTypes = {
   found: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired

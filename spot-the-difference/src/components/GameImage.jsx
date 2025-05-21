@@ -15,13 +15,10 @@ const GameImage = ({ imageUrl, differences, foundDifferences, onDifferenceFound,
         });
       };
 
-      // Update size when image loads
       imageRef.current.onload = updateImageSize;
       
-      // Update on window resize
       window.addEventListener('resize', updateImageSize);
       
-      // Initial size check
       if (imageRef.current.complete) {
         updateImageSize();
       }
@@ -35,16 +32,12 @@ const GameImage = ({ imageUrl, differences, foundDifferences, onDifferenceFound,
   const handleClick = (e) => {
     if (!imageRef.current || !containerRef.current) return;
 
-    // Get click coordinates relative to the image
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
-    // Adjust coordinates based on image's actual rendered size vs. natural size
     const scaleX = imageSize.width / imageRef.current.naturalWidth;
     const scaleY = imageSize.height / imageRef.current.naturalHeight;
 
-    // Check if click is within any difference area
     differences.forEach((diff, index) => {
       const diffX = diff.x * scaleX;
       const diffY = diff.y * scaleY;
@@ -98,7 +91,6 @@ const GameImage = ({ imageUrl, differences, foundDifferences, onDifferenceFound,
     </div>
   );
 };
-
 GameImage.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   differences: PropTypes.arrayOf(

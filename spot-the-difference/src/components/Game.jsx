@@ -3,6 +3,7 @@ import GameImage from './GameImage';
 import Timer from './Timer';
 import ScoreBoard from './ScoreBoard';
 import SuccessModal from './SuccessModal';
+import VolumeControl from './VolumeControl';
 
 
 
@@ -15,9 +16,39 @@ const Game = () => {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [resetTimer, setResetTimer] = useState(0);
   const [error, setError] = useState(null);
+  const [bgMusic] = useState(new Audio('/sfx/bg_music.mp3'));
+
+  
+  useEffect(() => {
+    bgMusic.loop = true;
+    bgMusic.volume = 0.3; 
+    
+    const playMusic = () => {
+      bgMusic.play().catch(err => {
+        console.error("Error playing background music:", err);
+      });
+    };
+    
+    
+    const handleUserInteraction = () => {
+      playMusic();
+      
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+    };
+    
+    document.addEventListener('click', handleUserInteraction);
+    document.addEventListener('keydown', handleUserInteraction);
+    
+    return () => {
+      
+      bgMusic.pause();
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+    };
+  }, [bgMusic]);
 
   useEffect(() => {
-    // Load the game configuration from JSON
     fetch('/game-config.json')
       .then(response => response.json())
       .then(data => {
@@ -33,11 +64,9 @@ const Game = () => {
   }, []);
 
   useEffect(() => {
-    // Check if all differences have been found
     if (gameConfig && foundDifferences.length === gameConfig.differences.length && foundDifferences.length > 0) {
       setTimerRunning(false);
       setGameCompleted(true);
-      // Play win sound when game is completed
       try {
         const audio = new Audio('/sfx/win.wav');
         audio.play();
@@ -50,7 +79,6 @@ const Game = () => {
   const handleDifferenceFound = (index) => {
     if (!foundDifferences.includes(index)) {
       setFoundDifferences([...foundDifferences, index]);
-      // Play success sound
       try {
         const audio = new Audio('/sfx/rightClick.wav');
         audio.play();
@@ -65,7 +93,6 @@ const Game = () => {
     setTimerRunning(true);
     setGameCompleted(false);
     setTimeElapsed(0);
-    // Increment resetTimer to trigger a reset in the Timer component
     setResetTimer(prev => prev + 1);
   };
 
@@ -81,7 +108,10 @@ const Game = () => {
     <div className="max-w-6xl mx-auto p-5 bg-background rounded shadow">
       <div className="flex flex-col items-center mb-5">
         <h1 className="text-4xl font-bold text-primary mb-4">{gameConfig.gameTitle}</h1>
-        <div className="flex justify-between w-full max-w-xl mx-auto p-3 bg-white rounded shadow md:flex-row flex-col gap-4">
+        <div className="flex justify-between items-center w-full max-w-xl mx-auto p-3 bg-white rounded shadow md:flex-row flex-col gap-4">
+          <div className="absolute top-4 right-4">
+            <VolumeControl audio={bgMusic} />
+          </div>
           <ScoreBoard 
             found={foundDifferences.length} 
             total={gameConfig.differences.length} 
