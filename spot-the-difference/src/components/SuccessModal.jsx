@@ -28,7 +28,7 @@ const SuccessModal = ({ score, total, time, onRestart }) => {
         </div>
         <div>
           <button 
-            className="bg-accent hover:bg-green-600 active:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 shadow-lg" 
+            className="bg-accent bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 shadow-lg" 
             onClick={onRestart}
           >
             Play Again

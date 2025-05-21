@@ -6,7 +6,7 @@ const VolumeControl = ({ audio }) => {
   const [isMuted, setIsMuted] = useState(false);
   const [previousVolume, setPreviousVolume] = useState(30);
 
-  // Update audio volume when volume state changes
+  
   useEffect(() => {
     if (!audio) return;
     
@@ -17,7 +17,7 @@ const VolumeControl = ({ audio }) => {
     }
   }, [volume, isMuted, audio]);
 
-  // Handle volume change
+ 
   const handleVolumeChange = (e) => {
     const newVolume = parseInt(e.target.value, 10);
     setVolume(newVolume);
@@ -29,7 +29,7 @@ const VolumeControl = ({ audio }) => {
     }
   };
 
-  // Toggle mute
+ 
   const toggleMute = () => {
     if (isMuted) {
       setIsMuted(false);

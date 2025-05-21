@@ -1,4 +1,4 @@
-/* Custom animations that are difficult to do with Tailwind */
+
 @keyframes pulse {
   0% {
     transform: scale(1);

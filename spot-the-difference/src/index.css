@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Custom variables */
+
 :root {
   --primary-color: #4a6fa5;
   --secondary-color: #166088;
@@ -11,7 +11,6 @@
   --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Add any custom base styles that Tailwind doesn't provide */
 @layer base {
   html {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
