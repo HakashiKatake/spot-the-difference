@@ -63,7 +63,7 @@ const VolumeControl = ({ audio }) => {
         max="100"
         value={isMuted ? 0 : volume}
         onChange={handleVolumeChange}
-        className="w-24 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+        className="w-24 h-2 bg-black rounded-lg appearance-none cursor-pointer"
         aria-label="Volume control"
       />
     </div>
