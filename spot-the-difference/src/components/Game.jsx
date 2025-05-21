@@ -4,7 +4,7 @@ import Timer from './Timer';
 import ScoreBoard from './ScoreBoard';
 import SuccessModal from './SuccessModal';
 
-import { correctSound, winSound } from '../utils/gameSounds.js';
+
 
 const Game = () => {
   const [gameConfig, setGameConfig] = useState(null);
@@ -39,7 +39,8 @@ const Game = () => {
       setGameCompleted(true);
       // Play win sound when game is completed
       try {
-        winSound();
+        const audio = new Audio('/sfx/win.wav');
+        audio.play();
       } catch (err) {
         console.error("Error playing win sound:", err);
       }
@@ -51,7 +52,8 @@ const Game = () => {
       setFoundDifferences([...foundDifferences, index]);
       // Play success sound
       try {
-        correctSound();
+        const audio = new Audio('/sfx/rightClick.wav');
+        audio.play();
       } catch (err) {
         console.error("Error playing sound:", err);
       }

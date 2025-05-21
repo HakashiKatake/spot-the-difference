@@ -5,8 +5,8 @@
     "image2": "/img2.jpg"
   },
   "differences": [
-    { "x": 145, "y": 95, "width": 120, "height": 75 },
-    { "x": 280, "y": 225, "width": 60, "height": 60 },
-    { "x": 140, "y": 455, "width": 100, "height": 100 }
+    { "x": 145, "y": 95, "width": 250, "height": 250 },
+    { "x": 280, "y": 225, "width": 250, "height": 250 },
+    { "x": 100, "y": 700, "width": 250, "height": 250 }
   ]
 }
