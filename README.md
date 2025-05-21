@@ -13,7 +13,13 @@ A JSON-configurable "Spot the Difference" game built with React, Vite, and Tailw
 - Sound effects for enhanced interactivity
 - JSON-based configuration for easy customization
 
-## Installation
+## How to Run the Game
+
+### Prerequisites
+- Node.js v16 or higher
+- npm v8 or higher
+
+### Installation and Setup
 
 ```bash
 # Clone the repository (if you're starting from scratch)
@@ -24,14 +30,47 @@ cd spot-the-difference
 
 # Install dependencies
 npm install
+```
 
+### Running the Game
+
+```bash
 # Start the development server
 npm run dev
 ```
 
-## Game Configuration
+After running the command, you should see output similar to this:
 
-The game is configured through the `public/game-config.json` file. You can customize the game by modifying this file:
+```
+  VITE v6.X.X  ready in XXX ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+```
+
+Open your browser and navigate to the local URL shown in the terminal (typically http://localhost:5173). The game should load automatically.
+
+### Building for Production
+
+When you're ready to deploy the game:
+
+```bash
+# Build the production version
+npm run build
+
+# Preview the production build locally (optional)
+npm run preview
+```
+
+## How the Game Uses JSON Configuration
+
+The game is entirely driven by a JSON configuration file, making it highly customizable without changing any code. This configuration-based approach allows you to create multiple game levels with different images and difference locations by simply editing the JSON.
+
+### JSON Configuration File Location
+
+The configuration file is located at: `public/game-config.json`
+
+### JSON Structure Explanation
 
 ```json
 {
@@ -41,22 +80,36 @@ The game is configured through the `public/game-config.json` file. You can custo
     "image2": "/img2.jpg"
   },
   "differences": [
-    { "x": 100, "y": 200, "width": 50, "height": 50 },
-    { "x": 300, "y": 150, "width": 40, "height": 40 },
-    { "x": 500, "y": 300, "width": 30, "height": 30 }
+    { "x": 145, "y": 95, "width": 120, "height": 75 },
+    { "x": 280, "y": 225, "width": 60, "height": 60 },
+    { "x": 140, "y": 455, "width": 100, "height": 100 }
   ]
 }
 ```
 
-### Configuration Parameters
+### How the JSON Configuration Works
 
-- `gameTitle`: The title displayed at the top of the game
-- `images`: Paths to the two images (relative to the public directory)
-- `differences`: Array of difference coordinates and dimensions
-  - `x`: X-coordinate of the difference (from the left)
-  - `y`: Y-coordinate of the difference (from the top)
-  - `width`: Width of the difference area
-  - `height`: Height of the difference area
+1. **Game Loading Process**:
+   - When the game starts, it automatically fetches the `game-config.json` file
+   - The React components use this data to render the game interface
+   - No code changes are needed when swapping images or changing difference locations
+
+2. **Configuration Parameters**:
+   - `gameTitle`: The title displayed at the top of the game
+   - `images`: Object containing paths to both images (relative to the public directory)
+     - `image1`: Path to the first image (displayed on the left)
+     - `image2`: Path to the second image (displayed on the right)
+   - `differences`: Array of objects, each defining a clickable difference area:
+     - `x`: X-coordinate of the difference (measured in pixels from the left edge)
+     - `y`: Y-coordinate of the difference (measured in pixels from the top edge)
+     - `width`: Width of the clickable area in pixels
+     - `height`: Height of the clickable area in pixels
+
+3. **How Differences Work**:
+   - Each object in the `differences` array defines a rectangular area on both images
+   - When a player clicks within these coordinates, the game checks if it matches any defined difference
+   - If a match is found, the area is highlighted with a circle and counted toward completion
+   - The game tracks which differences have been found using their array indices
 
 ## How to Play
 
